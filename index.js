@@ -9,23 +9,23 @@ exports.highlandResponse = function (res) {
   if (res.body.getReader == null) return _(res.body)
 
   const reader = this.body.getReader()
-  return _((push, next) => {
+  return _(function (push, next) {
     reader.read()
-    .then(result => {
+    .then(function (result) {
       push(null, result)
       if (result.done) {
         return push(null, _.nil)
       }
       next()
     })
-    .catch(err => {
+    .catch(function (err) {
       push(err)
       next()
     })
   })
 }
 
-// through text decoder
+// text decoder transform
 exports.textDecoder = function (stream) {
   // fallback for isomorphic-fetch
   if (typeof TextDecoder === 'undefined') {
@@ -34,5 +34,7 @@ exports.textDecoder = function (stream) {
 
   const decoder = new TextDecoder()
   return stream
-    .map(result => decoder.decode(result.value || new Uint8Array(), {stream: !result.done}))
+    .map(function (result) {
+      return decoder.decode(result.value || new Uint8Array(), {stream: !result.done})
+    })
 }
