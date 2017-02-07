@@ -1,6 +1,6 @@
 {
   "name": "highland-fetch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Experimental conversion of Fetch streams to Highland streams",
   "main": "index.js",
   "dependencies": {
