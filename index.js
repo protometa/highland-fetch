@@ -2,13 +2,15 @@
 const _ = require('highland')
 
 // get highland stream from Response
-exports.highlandResponse = function (res) {
+exports.toHighland = function (res) {
   // works as method or function
   if (res == null) res = this
+  // if body null empty stream (can happen with cors restricted responses)
+  if (res.body == null) return _([])
   // fallback for isomorphic-fetch
   if (res.body.getReader == null) return _(res.body)
 
-  const reader = this.body.getReader()
+  const reader = res.body.getReader()
   return _(function (push, next) {
     reader.read()
     .then(function (result) {
