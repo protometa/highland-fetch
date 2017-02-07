@@ -12,6 +12,6 @@ Response.prototype.highland = toHighland
 
 // highland stream of response body text
 _(fetch('http://www.example.com'))
-.map(res => res.highland())
+.flatMap(res => res.highland())
 .through(textDecoder)
 ```
