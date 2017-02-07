@@ -6,6 +6,7 @@ import {toHighland, textDecoder} from './index.js'
 
 describe('highlandRequest', function () {
   it('extends Response to give Highland stream that works with textDecoder', function (done) {
+    // this impliments the streaming fetch demo from https://domenic.github.io/streams-demo/
     // setup
     Response.prototype.highland = toHighland
     // usage
